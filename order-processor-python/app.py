@@ -1,18 +1,29 @@
 from flask import Flask, request, jsonify
 import psycopg2
+import os
+import time
 
 app = Flask(__name__)
 
-# ✅ Database connection setup
-import os
+# ✅ Wait and connect to PostgreSQL
+def wait_for_postgres():
+    for attempt in range(10):
+        try:
+            conn = psycopg2.connect(
+                host=os.environ.get("PGHOST", "postgres"),
+                port=os.environ.get("PGPORT", "5432"),
+                database=os.environ.get("PGDATABASE", "emartdb"),
+                user=os.environ.get("PGUSER", "emartuser"),
+                password=os.environ.get("PGPASSWORD", "emartpass")
+            )
+            print("✅ Connected to Postgres")
+            return conn
+        except Exception as e:
+            print(f"⏳ Attempt {attempt+1}/10: Waiting for Postgres... {e}")
+            time.sleep(2)
+    raise Exception("❌ Could not connect to Postgres after retries")
 
-conn = psycopg2.connect(
-    host=os.environ.get("PGHOST", "localhost"),
-    port=os.environ.get("PGPORT", "5432"),
-    database=os.environ.get("PGDATABASE", "emartdb"),
-    user=os.environ.get("PGUSER", "emartuser"),
-    password=os.environ.get("PGPASSWORD", "emartpass")
-)
+conn = wait_for_postgres()
 
 # ✅ Create users table and seed it
 cursor = conn.cursor()
@@ -30,6 +41,7 @@ if cursor.fetchone()[0] == 0:
     INSERT INTO users (id, name, email, password) VALUES
     ('u1', 'Alice', 'alice@example.com', 'pass123')
     """)
+    print("🧑‍💻 Default user seeded")
 conn.commit()
 cursor.close()
 
@@ -100,3 +112,4 @@ def submit_order():
 if __name__ == "__main__":
     print("🚀 Starting Flask on port 5002")
     app.run(host="0.0.0.0", port=5002)
+
