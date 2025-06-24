@@ -7,8 +7,8 @@ import OrderConfirmation from './OrderConfirmation';
 import PaymentPage from './PaymentPage';
 import axios from 'axios';
 
-// ✅ Set base URL for API Gateway
-axios.defaults.baseURL = 'http://localhost:3001';
+// ❌ REMOVE hardcoded baseURL — let browser resolve /login to API Gateway
+// axios.defaults.baseURL = 'http://localhost:3001';
 
 function App() {
   const [username, setUsername] = useState('');
@@ -165,3 +165,4 @@ function App() {
 }
 
 export default App;
+
