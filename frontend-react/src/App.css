@@ -1,0 +1,222 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f7fa;
+}
+
+.App {
+  max-width: 400px;
+  margin: 10vh auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.App h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+/* 👇 Added for animated logo + title */
+.logo {
+  width: 80px;
+  margin: 0 auto 0.5rem;
+  object-fit: contain;
+  display: block;
+}
+
+.animated-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, #007bff, #00c3ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeIn 1.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+p {
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+/* ✨ Register link style */
+.register-link {
+  margin-top: 1rem;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+.register-link:hover {
+  color: #0056b3;
+}
+
+/* 🧭 Nav Bar Styling */
+.top-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  font-size: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.product-link {
+  background-color: #007bff;
+  color: white;
+}
+
+.product-link:hover {
+  background-color: #0056b3;
+}
+
+.cart-link {
+  background-color: #28a745;
+  color: white;
+}
+
+.cart-link:hover {
+  background-color: #218838;
+}
+
+.cart-count {
+  margin-left: 0.25rem;
+  font-weight: bold;
+}
+/* Colorful eMart bouncing title */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.multicolor-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.multicolor-title span {
+  display: inline-block;
+  animation: bounce 1.2s infinite ease-in-out;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Per-letter bounce delay */
+.multicolor-title span:nth-child(1) { animation-delay: 0s; }
+.multicolor-title span:nth-child(2) { animation-delay: 0.1s; }
+.multicolor-title span:nth-child(3) { animation-delay: 0.2s; }
+.multicolor-title span:nth-child(4) { animation-delay: 0.3s; }
+.multicolor-title span:nth-child(5) { animation-delay: 0.4s; }
+
+.blue { color: #007bff; }
+.green { color: #28a745; }
+.orange { color: #fd7e14; }
+.red { color: #dc3545; }
+.purple { color: #6f42c1; }
+
+/* 🔗 Brand logo + animated title for top-left corner */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  margin-right: auto;
+}
+
+.brand-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+.brand-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  animation: bounce 1s infinite ease-in-out;
+}
+
+.brand-title span {
+  display: inline-block;
+  animation: bounce 1.2s infinite ease-in-out;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+}
+
+/* Per-letter delay for bounce */
+.brand-title span:nth-child(1) { animation-delay: 0s; }
+.brand-title span:nth-child(2) { animation-delay: 0.1s; }
+.brand-title span:nth-child(3) { animation-delay: 0.2s; }
+.brand-title span:nth-child(4) { animation-delay: 0.3s; }
+.brand-title span:nth-child(5) { animation-delay: 0.4s; }
+
+/* Responsive padding for top-nav when logo is present */
+.top-nav {
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Optional: make sure nav links don’t crowd on small screens */
+@media (max-width: 600px) {
+  .top-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .brand-title {
+    font-size: 1.2rem;
+  }
+}
