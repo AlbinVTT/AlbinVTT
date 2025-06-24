@@ -24,7 +24,7 @@ services:
   order-processor-python:
     build: ./order-processor-python
     ports:
-      - "5010:5002"
+      - "5002:5002"  # ✅ Fixed: Expose Flask service for testing
     depends_on:
       - ledger
       - postgres
