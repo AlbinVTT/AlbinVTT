@@ -6,14 +6,19 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ✅ Login
+// ✅ Login with better error logging
 app.post("/login", async (req, res) => {
     try {
         const response = await axios.post("http://order-processor-python:5002/validateuser", req.body);
         res.json(response.data);
     } catch (error) {
-        console.error("Login error:", error.message);
-        res.status(401).json({ message: "Login failed" });
+        if (error.response) {
+            console.error("Login error:", error.response.status, error.response.data);
+            res.status(error.response.status).json(error.response.data);
+        } else {
+            console.error("Login error (no response):", error.message);
+            res.status(500).json({ message: "Unexpected error" });
+        }
     }
 });
 
@@ -28,7 +33,7 @@ app.get("/products", async (req, res) => {
     }
 });
 
-// ✅ Submit order (updated structure validation)
+// ✅ Submit order (with validation)
 app.post("/submitorder", async (req, res) => {
     try {
         const { user_id, items, total } = req.body;
@@ -50,8 +55,13 @@ app.post("/submitorder", async (req, res) => {
         const response = await axios.post("http://order-processor-python:5002/submitorder", req.body);
         res.json(response.data);
     } catch (error) {
-        console.error("Submit order error:", error.message);
-        res.status(500).json({ message: "Could not submit order" });
+        if (error.response) {
+            console.error("Submit order error:", error.response.status, error.response.data);
+            res.status(error.response.status).json(error.response.data);
+        } else {
+            console.error("Submit order error (no response):", error.message);
+            res.status(500).json({ message: "Unexpected error" });
+        }
     }
 });
 
@@ -77,9 +87,15 @@ app.post('/initiatepayment', async (req, res) => {
         return res.json({ message: 'Payment successful', order: orderResponse.data });
 
     } catch (error) {
-        console.error(error.message);
-        return res.status(500).json({ error: 'Payment processing failed' });
+        if (error.response) {
+            console.error("Payment error:", error.response.status, error.response.data);
+            res.status(error.response.status).json(error.response.data);
+        } else {
+            console.error("Payment error (no response):", error.message);
+            res.status(500).json({ error: 'Payment processing failed' });
+        }
     }
 });
 
 app.listen(3001, () => console.log('🌐 API Gateway running on port 3001'));
+
