@@ -7,6 +7,9 @@ import OrderConfirmation from './OrderConfirmation';
 import PaymentPage from './PaymentPage';
 import axios from 'axios';
 
+// ✅ Set base URL for API Gateway
+axios.defaults.baseURL = 'http://localhost:3001';
+
 function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -29,7 +32,7 @@ function App() {
         setError('❌ Invalid username or password');
       }
     } catch (err) {
-      console.error('Login error:', err);
+      console.error('Login error:', err.message);
       setError('❌ Login failed. Backend not reachable?');
     }
   };
